@@ -27,16 +27,17 @@ jobs:
         run: |
           hugo
           mv jiangfucheng.github.io/.git public/
+          ls -l public
 
-      - name: Publish website
-        uses: cpina/github-action-push-to-another-repository@v1.7.2
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }} 
-        with:
-          source-directory: 'public'
-          destination-github-username: 'jiangfucheng'
-          destination-repository-name: 'jiangfucheng.github.io'
-          user-email: jiangfucheng0914@foxmail.com
-          user-name: jiangfucheng
-          commit-message: 'update'
-          target-branch: 'main'
+      # - name: Publish website
+      #   uses: cpina/github-action-push-to-another-repository@v1.7.2
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }} 
+      #   with:
+      #     source-directory: 'public'
+      #     destination-github-username: 'jiangfucheng'
+      #     destination-repository-name: 'jiangfucheng.github.io'
+      #     user-email: jiangfucheng0914@foxmail.com
+      #     user-name: jiangfucheng
+      #     commit-message: 'update'
+      #     target-branch: 'main'
