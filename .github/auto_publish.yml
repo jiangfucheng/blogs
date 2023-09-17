@@ -1,0 +1,41 @@
+name: "Publish Blogs"
+on: 
+  push:
+    branchs:
+      - master
+permissions:
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.118.2'
+
+      - name: Clone website repository
+        run: |
+          git clone https://github.com/jiangfucheng/jiangfucheng.github.io.git public
+
+      - name: Generate website
+        run: |
+          hugo
+
+      - name: Publish website
+        uses: cpina/github-action-push-to-another-repository@v1.7.2
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }} 
+        with:
+          source-directory: 'public'
+          destination-github-username: 'jiangfucheng'
+          destination-repository-name: 'jiangfucheng.github.io'
+          user-email: jiangfucheng0914@foxmail.com
+          user-name: jiangfucheng
+          commit-message: 'update'
+          target-branch: 'main'
