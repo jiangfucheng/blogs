@@ -25,7 +25,7 @@ jobs:
 
       - name: Generate website
         run: |
-          hugo version
+          ls -l
           hugo
           mv jiangfucheng.github.io/.git public/
           ls -l public
